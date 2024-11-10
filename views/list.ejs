@@ -15,6 +15,7 @@
                 <th>Author</th>
                 <th>Price</th>
                 <th>Image</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +25,17 @@
                     <td><%= b.title %></td>
                     <td><%= b.author %></td>
                     <td><%= b.price %></td>
-                    <td><%= b.image %></td>
+                    <td><img src="<%= b.image%>" alt=""></td>
+                    <td>
+                        <a href="/detail/<%= b.id %>">Detail</a>
+                        <a href="">Edit</a>
+                        <a 
+                            onclick="return confirm('Are you sure?')"
+                            href="/delete/<%= b.id %>"
+                        >
+                            Delete
+                        </a>
+                    </td>
                 </tr>
             <% }); %> 
         </tbody>
