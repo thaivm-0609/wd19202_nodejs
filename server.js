@@ -57,6 +57,10 @@ mongoose.connect('mongodb://localhost:27017/wd19202') //kết nối vs CSDL
         app.get('/create', bookControl.create);//trả về form cho ng dùng nhập dữ liệu
         app.post('/store', bookControl.store);//lấy dữ liệu, lưu vào database
 
+        //chỉnh sửa
+        app.get('/edit/:book', bookControl.edit); //hiển thị form sửa
+        app.post('/update/:book', bookControl.update); //lưu dữ liệu mới vào db
+
         app.listen(port, () => {
             console.log(`Server đang chạy ở port ${port}`);
         })

@@ -44,6 +44,31 @@ class BookController {
         //B3: đưa ng dùng về trang danh sách 
         res.redirect('/list');
     }
+
+    async edit(req,res) {
+        //B1: lấy id bản ghi cần sửa
+        const id = req.params.book;
+        //B2: truy vấn dữ liệu theo id
+        const book = await Book.findById(id);
+        //B3: đổ dữ liệu ra giao diện
+        res.render('edit.ejs', {book});
+    }
+
+    async update(req,res) {
+        //B1: lấy id bản ghi cần sửa
+        const id = req.params.book;
+        //B2: lấy dữ liệu người dùng nhập vào form
+        const data = {
+            title: req.body.title,
+            author: req.body.author,
+            price: req.body.price,
+            image: req.body.image,
+        }
+        //B3: gửi dữ liệu lưu vào db
+        await Book.findByIdAndUpdate(id,data);
+        //B4: đưa ng dùng về trang list
+        res.redirect('/list');
+    }
 }
 
 export default BookController;
