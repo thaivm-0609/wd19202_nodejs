@@ -2,11 +2,10 @@
 import express from "express"; //express dùng để khởi tạo node server
 import ejs from "ejs"; //template engine để xây dựng giao diện
 import mongoose from "mongoose"; //kết nối CSDL MongoDB
-import BookController from "./controllers/BookController.js";
+import router from "./routers/index.js";
 
 const app = new express;
 const port = 2000; //khai báo cổng sẽ chạy
-const bookControl = new BookController; //khởi tạo object từ class BookController
 
 app.use(
     express.urlencoded({
@@ -48,19 +47,7 @@ app.set('views', './views'); //khai báo thư mục chứa file giao diện
 
 mongoose.connect('mongodb://localhost:27017/wd19202') //kết nối vs CSDL
     .then(result => { //nếu kết nối vs CSDL thành công
-        //khai báo router
-        //app.method('/url', objectControl.tenFunction)
-        app.get('/list', bookControl.getList); //hiển thị danh sách
-        app.get('/detail/:book', bookControl.getDetail); //hiển thị chi tiết
-        app.get('/delete/:book', bookControl.delete); //xóa bản ghi
-        //thêm mới: 
-        app.get('/create', bookControl.create);//trả về form cho ng dùng nhập dữ liệu
-        app.post('/store', bookControl.store);//lấy dữ liệu, lưu vào database
-
-        //chỉnh sửa
-        app.get('/edit/:book', bookControl.edit); //hiển thị form sửa
-        app.post('/update/:book', bookControl.update); //lưu dữ liệu mới vào db
-
+        app.use('/', router); //gọi vào router tổng (index.js)
         app.listen(port, () => {
             console.log(`Server đang chạy ở port ${port}`);
         })

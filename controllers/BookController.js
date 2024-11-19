@@ -69,6 +69,17 @@ class BookController {
         //B4: đưa ng dùng về trang list
         res.redirect('/list');
     }
+
+    //API function
+    async apiList(req,res) {
+        //truy vấn dữ liệu từ mongoDb
+        const books = await Book.find();
+        //trả dữ liệu
+        res.status(200).json({
+            'message': 'Lấy dữ liệu thành công',
+            'data': books,
+        })
+    }
 }
 
 export default BookController;
