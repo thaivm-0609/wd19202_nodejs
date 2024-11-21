@@ -122,6 +122,44 @@ class BookController {
             })
         }
     }
+
+    async apiCreate(req,res) {
+        try {
+            //B1: lấy dữ liệu ng dùng gửi lên 
+            const data = req.body;
+            //B2: đẩy dữ liệu, lưu vào DB
+            const newBook = await Book.create(data);
+            //B3: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Thành công',
+                'data': newBook,
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Lỗi'
+            })
+        }
+    }
+
+    async apiUpdate(req,res) {
+        try {
+            //B1: lấy id bản ghi cần sửa
+            const id = req.params.id;
+            //B2: lấy dữ liệu mới
+            const data = req.body;
+            //B3: đẩy dữ liệu lưu lên DB
+            const book = await Book.findByIdAndUpdate(id,data);
+            //B4: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Thành công',
+                'data': book
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Lỗi'
+            })
+        }
+    }
 }
 
 export default BookController;
