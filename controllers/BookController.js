@@ -72,13 +72,55 @@ class BookController {
 
     //API function
     async apiList(req,res) {
-        //truy vấn dữ liệu từ mongoDb
-        const books = await Book.find();
-        //trả dữ liệu
-        res.status(200).json({
-            'message': 'Lấy dữ liệu thành công',
-            'data': books,
-        })
+        try {
+            //truy vấn dữ liệu từ mongoDb
+            const books = await Book.find();
+            //trả dữ liệu
+            res.status(200).json({
+                'message': 'Lấy dữ liệu thành công',
+                'data': books,
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Lỗi'
+            })
+        }
+    }
+
+    async apiDetail(req,res) {
+        try {
+            //B1: lấy id bản ghi
+            const id = req.params.id;
+            //B2: truy vấn dữ liệu theo id
+            const book = await Book.findById(id);
+            //B3: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Thành công',
+                'data': book,
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Lỗi'
+            })
+        }
+    }
+
+    async apiDelete(req,res) {
+        try {
+            //B1: lấy id bản ghi cần xóa
+            const id = req.params.id;
+            //B2: gửi id truy vấn
+            const deletedBook = await Book.findByIdAndDelete(id);
+            //B3: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Xóa thành công',
+                'data': deletedBook,
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Lỗi'
+            })
+        }
     }
 }
 
