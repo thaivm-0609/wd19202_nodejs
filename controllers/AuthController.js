@@ -1,10 +1,18 @@
 import User from "../models/User.js";
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
+import { authValidator } from "../validations/auth.js";
 class AuthController {
     async signUp(req,res) {
         try {
+            //B0: kiểm tra dữ liệu hợp lệ
+            const { error } = authValidator.validate(req.body, {abortEarly: false});
+            if (error) {
+                const listErrors = error.details.map((item) => item.message);
+                return res.status(400).json({
+                    'message': listErrors
+                })
+            }
             //B1: lấy dữ liệu người dùng gửi lên
             const { email, password } = req.body;
             //B2: kiểm tra email đã tồn tại trong db không?
@@ -35,6 +43,14 @@ class AuthController {
 
     async signIn(req,res) {
         try {
+            //B0: kiểm tra dữ liệu hợp lệ
+            const { error } = authValidator.validate(req.body, {abortEarly: false});
+            if (error) {
+                const listErrors = error.details.map((item) => item.message);
+                return res.status(400).json({
+                    'message': listErrors
+                })
+            }
             //B1: lấy dữ liệu ng dùng gửi lên
             const { email, password } = req.body;
             //B2: kiểm tra email có trong hệ thống hay không?

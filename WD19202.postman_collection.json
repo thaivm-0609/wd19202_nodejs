@@ -76,6 +76,16 @@
 		{
 			"name": "Create",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDFhOTFmNzVjZDI4YTA0ZjMyYjIyNCIsImlhdCI6MTczMjQ0MTMwMiwiZXhwIjoxNzMyNTI3NzAyfQ.0wklHyyGwcnnvh5FN5YKu4mjwMUYdCqMMOzdgZrwghI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -127,7 +137,7 @@
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "thaivm2@fpt.edu.vn",
+							"value": "thaivm2@fe.edu.vn",
 							"type": "text"
 						},
 						{
